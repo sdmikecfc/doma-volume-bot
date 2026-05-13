@@ -1,0 +1,22 @@
+; supervisor config for doma-volume-bot
+; Copy to /etc/supervisor/conf.d/volume_bot.conf and edit paths.
+; Then: supervisorctl reread && supervisorctl update && supervisorctl start volume_bot
+
+[program:volume_bot]
+command=/path/to/your/venv/bin/python3 /path/to/doma-volume-bot/volume_bot.py
+directory=/path/to/doma-volume-bot
+autostart=true
+autorestart=true
+startsecs=5
+startretries=3
+stopwaitsecs=10
+stopasgroup=true
+killasgroup=true
+user=root
+stdout_logfile=/var/log/supervisor/volume_bot.out.log
+stderr_logfile=/var/log/supervisor/volume_bot.err.log
+stdout_logfile_maxbytes=10MB
+stdout_logfile_backups=3
+stderr_logfile_maxbytes=10MB
+stderr_logfile_backups=3
+environment=PYTHONUNBUFFERED="1"
